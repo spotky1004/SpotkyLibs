@@ -4,6 +4,11 @@ let windowBlured = false;
 window.blur = () => windowBlured = true;
 window.focus = () => windowBlured = false;
 
+// for who want to use time more effective...
+
+// Number related: romanize, timeNotation
+// Etc.          : timer, copyObj
+
 const Spl = {
     timer: ms => new Promise(
         res => {

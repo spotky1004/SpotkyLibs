@@ -2,6 +2,11 @@
 
 const D = Decimal;
 
+// for who want to use time more effective...
+
+// Number related: notation, clearify
+// Etc.          : copyObj
+
 const Spdl = {
     notation: function(number, exponentialFix=4, decimalFix=2) {
         number = new D(number);
@@ -17,21 +22,21 @@ const Spdl = {
         return number;
     },
     copyObj: function (obj) {
-      let cObject = {};
-      for (let i in obj) {
-        if (Array.isArray(obj[i])) {
-          cObject[i] = [];
-          const tempArr = obj[i];
-          for (let j = 0, l = tempArr.length; j < l; j++) {
-            cObject[i].push(tempArr[j] instanceof Decimal ? new D(tempArr[j]) : tempArr[j]);
+        let cObject = {};
+        for (let i in obj) {
+            if (Array.isArray(obj[i])) {
+                cObject[i] = [];
+                const tempArr = obj[i];
+                for (let j = 0, l = tempArr.length; j < l; j++) {
+                    cObject[i].push(tempArr[j] instanceof Decimal ? new D(tempArr[j]) : tempArr[j]);
+                }
+            } else if (typeof obj[i] === "object" && !(obj[i] instanceof Decimal)) {
+                cObject[i] = this.copyObj(obj[i]);
+            } else {
+                cObject[i] = obj[i] instanceof Decimal ? new D(obj[i]) : obj[i];
           }
-        } else if (typeof obj[i] === "object" && !(obj[i] instanceof Decimal)) {
-          cObject[i] = this.copyObject(obj[i]);
-        } else {
-          cObject[i] = obj[i] instanceof Decimal ? new D(obj[i]) : obj[i];
         }
-      }
-      return cObject;
+        return cObject;
     }
 }
 
